@@ -10,8 +10,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.2,
       "position": [
-        -192,
-        -32
+        -240,
+        16
       ],
       "id": "c137090b-59b3-4371-a9db-c20b66d670d8",
       "name": "Webhook",
@@ -24,7 +24,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        304,
+        528,
         -32
       ],
       "id": "d78ab43e-770c-4ee3-98c7-ef3d6b4a63a8",
@@ -42,6 +42,105 @@
       ],
       "id": "6ed7d3e4-95fd-4112-888a-5fad1573ae6b",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "name"
+        },
+        "table": {
+          "__rl": true,
+          "value": "scans",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "verdict": "={{ $json.verdict }}",
+            "score": "={{ $json.score }}",
+            "reasons": "={{ $json.reasons.join('; ') }}",
+            "urls": "={{ $json.urls.join(', ') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "verdict",
+              "displayName": "verdict",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reasons",
+              "displayName": "reasons",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "urls",
+              "displayName": "urls",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        240,
+        64
+      ],
+      "id": "ba14270a-44f2-4bba-bdff-ec8694bbaf4a",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "9vqzpfgQzAS8pSku",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "connections": {
@@ -63,13 +162,24 @@
             "node": "Respond to Webhook",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
           }
         ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        []
       ]
     }
   },
   "pinData": {},
   "meta": {
+    "templateCredsSetupCompleted": true,
     "instanceId": "e87d2d2545c15761694ae16dcabb9492597de92fb7eb28b74cce616ea8359ed7"
   }
 }

@@ -32,6 +32,16 @@ services:
       postgres:
         condition: service_healthy
 
+  web:
+    build: ./web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      N8N_WEBHOOK_URL: http://n8n:5678/webhook/scan
+    depends_on:
+      - n8n
+
 volumes:
   pg_data:
   n8n_data:
