@@ -58,8 +58,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-          
-    deploy:
+  deploy:
     needs: publish
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: self-hosted
